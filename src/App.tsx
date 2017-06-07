@@ -1,22 +1,30 @@
-import * as React from 'react';
-import './App.css';
+import * as React from 'react'
+import * as Immutable from 'immutable'
+import {connect} from 'react-redux'
+import './App.css'
 
-const logo = require('./logo.svg');
+const logo = require('./logo.svg')
 
-class App extends React.Component<{}, null> {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+interface StateProps {
+    state: Immutable.Map<string, any>
 }
 
-export default App;
+function App(props: StateProps) {
+    return (
+        <div className="App">
+            <div className="App-header">
+                <img src={logo} className="App-logo" alt="logo" />
+                <h2>{props.state.get('message')}</h2>
+            </div>
+            <p className="App-intro">
+                To get started, edit <code>src/App.tsx</code> and save to reload.
+            </p>
+        </div>
+    )
+}
+
+function mapStateToProps(state: Immutable.Map<string, any>) {
+    return {state}
+}
+
+export default connect(mapStateToProps)(App)
