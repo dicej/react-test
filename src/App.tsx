@@ -19,6 +19,8 @@ function App(props: StateProps) {
             <p className="App-intro">
                 To get started, edit <code>src/App.tsx</code> and save to reload.
             </p>
+            <div id="foo">{props.state.get('foo')}</div>
+            <input type="text" defaultValue={props.state.get('message')} onChange={props.updateMessage}/>
         </div>
     )
 }
