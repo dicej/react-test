@@ -2,21 +2,25 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as Immutable from 'immutable'
 import {Provider} from 'react-redux'
+import {createStore} from 'redux'
 import App from './App'
 import reducer from './Reducer'
+import Action, {Verb} from './Action'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
+const diff = require('immutablediff')
 
-const store = createStore(app, Immutable.fromJS({ message: "Squeamish Ossifrage" }))
+const store = createStore(reducer, Immutable.fromJS({ message: 'Squeamish Ossifrage' }))
 
 const socket = new WebSocket('ws://localhost:8290');
 
-socket.on('open', (event: Event) => {
+socket.addEventListener('open', (event: Event) => {
     socket.send(JSON.stringify({ type: Verb.Replace,
-                                 state: store.getState().toJS() }))
+                                 patch: diff(Immutable.fromJS({}),
+                                             store.getState().toJS()) }))
 })
 
-socket.on('message', (event: MessageEvent) => {
+socket.addEventListener('message', (event: MessageEvent) => {
     const action = JSON.parse(event.data)
     store.dispatch({ type: action.type,
                      patch: Immutable.fromJS(action.patch) })
@@ -28,16 +32,16 @@ function dispatch(action: Action) {
     store.dispatch(action)
 }
 
-function updateMessage(event: React.FormEvent<HTMLInputElement>) => {
-    dispatch({ type: Verb.Patch,
+function updateMessage(event: React.FormEvent<HTMLInputElement>) {
+    dispatch({ type: Verb.Update,
                patch: Immutable.fromJS([{ op: 'replace',
                                           path: '/message',
-                                          value: event.target.value }]) })
+                                          value: event.currentTarget.value }]) })
 }
 
 ReactDOM.render(
     <Provider store={store}>
-        <App updateMessage={updateMessage} />
+        <App state={store.getState()} updateMessage={updateMessage} />
     </Provider>,
     document.getElementById('root') as HTMLElement
 )

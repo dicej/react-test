@@ -1,15 +1,17 @@
 import * as React from 'react'
 import * as Immutable from 'immutable'
 import {connect} from 'react-redux'
+import {ImmutableObject} from './ImmutableObject'
 import './App.css'
 
 const logo = require('./logo.svg')
 
-interface StateProps {
-    state: Immutable.Map<string, any>
+interface Props {
+    state: Immutable.Map<string, ImmutableObject>
+    updateMessage: (event: React.FormEvent<HTMLInputElement>) => void
 }
 
-function App(props: StateProps) {
+function App(props: Props) {
     return (
         <div className="App">
             <div className="App-header">
@@ -25,7 +27,7 @@ function App(props: StateProps) {
     )
 }
 
-function mapStateToProps(state: Immutable.Map<string, any>) {
+function mapStateToProps(state: Immutable.Map<string, ImmutableObject>) {
     return {state}
 }
 

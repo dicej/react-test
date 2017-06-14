@@ -1,14 +1,14 @@
 import * as Immutable from 'immutable'
+import {ImmutableObject} from './ImmutableObject'
 
 export enum Verb {
-    Patch,
+    Update,
     Replace
 }
 
 interface Action {
     type: Verb
-    patch?: Immutable.List<any>
-    state?: Immutable.Map<string, any>
+    patch: Immutable.List<ImmutableObject>
 }
 
 export default Action

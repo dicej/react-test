@@ -1,13 +1,14 @@
 import * as Immutable from 'immutable'
 import Action, {Verb} from './Action'
-import patch from 'immutablepatch'
+import {ImmutableObject} from './ImmutableObject'
+const patch = require('immutablepatch')
 
-export default function(state: Immutable.Map<string, any>, action: Action) {
+export default function(state: Immutable.Map<string, ImmutableObject>, action: Action) {
     switch (action.type) {
-    case Verb.Patch:
+    case Verb.Update:
         return patch(state, action.patch)
     case Verb.Replace:
-        return action.state
+        return patch(Immutable.fromJS({}), action.patch)
     default:
         return state
     }
