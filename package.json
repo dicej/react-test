@@ -1,31 +1,35 @@
 {
-  "name": "react-test",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "immutable": "^3.8.1",
-    "immutablediff": "^0.4.4",
-    "immutablepatch": "^0.4.1",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-redux": "^5.0.5",
-    "redux": "^3.6.0"
-  },
-  "devDependencies": {
-    "@types/enzyme": "^2.8.0",
-    "@types/jest": "^19.2.4",
-    "@types/node": "^7.0.28",
-    "@types/react": "^15.0.27",
-    "@types/react-dom": "^15.5.0",
-    "@types/react-redux": "^4.4.42",
-    "enzyme": "^2.8.2",
-    "react-scripts-ts": "2.2.0",
-    "react-test-renderer": "^15.5.4"
-  },
-  "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
-  }
+    "name": "react-test",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@types/ws": "^3.0.0",
+        "immutable": "^3.8.1",
+        "immutablediff": "^0.4.4",
+        "immutablepatch": "^0.4.1",
+        "react": "^15.5.4",
+        "react-dom": "^15.5.4",
+        "react-redux": "^5.0.5",
+        "redux": "^3.6.0",
+        "ws": "^3.0.0"
+    },
+    "devDependencies": {
+        "@types/enzyme": "^2.8.0",
+        "@types/jest": "^19.2.4",
+        "@types/node": "^7.0.28",
+        "@types/react": "^15.0.27",
+        "@types/react-dom": "^15.5.0",
+        "@types/react-redux": "^4.4.42",
+        "enzyme": "^2.8.2",
+        "react-scripts-ts": "2.2.0",
+        "react-test-renderer": "^15.5.4"
+    },
+    "scripts": {
+        "start": "react-scripts-ts start",
+        "build": "react-scripts-ts build",
+        "test": "react-scripts-ts test --env=jsdom",
+        "eject": "react-scripts-ts eject",
+        "tsc": "tsc && tslint -c tslint.json -p tsconfig.json",
+        "serve": "node build/dist/server.js"
+    }
 }
