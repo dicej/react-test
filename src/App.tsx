@@ -19,13 +19,13 @@ function App(props: Props) {
         <div className="App">
             <div className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-                <h2>{message}</h2>
+                <h2>Hello, world!</h2>
             </div>
             <p className="App-intro">
                 To get started, edit <code>src/App.tsx</code> and save to reload.
             </p>
             <div id="foo">{foo}</div>
-            <input type="text" defaultValue={message} onChange={props.updateMessage}/>
+            <input type="text" value={message} onChange={props.updateMessage}/>
         </div>
     )
 }

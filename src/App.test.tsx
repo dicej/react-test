@@ -22,7 +22,7 @@ it('knows the magic words', () => {
         </Provider>
     )
     
-    expect(mount(element).find('h2').text()).toEqual(magic)
+    expect(mount(element).find('input').props().value).toEqual(magic)
 })
 
 it('knows when the magic words change', () => {
@@ -40,12 +40,12 @@ it('knows when the magic words change', () => {
     const updatedMagic = 'Oldoinyo Lengai';
     const updated = original.set('message', updatedMagic);
     
-    expect(mount(element).find('h2').text()).toEqual(originalMagic)
+    expect(mount(element).find('input').props().value).toEqual(originalMagic)
     expect(mount(element).find('#foo').text()).toEqual(originalFoo)
     
     store.dispatch({ type: Verb.Update,
                      patch: diff(original, updated) })
     
-    expect(mount(element).find('h2').text()).toEqual(updatedMagic)
+    expect(mount(element).find('input').props().value).toEqual(updatedMagic)
     expect(mount(element).find('#foo').text()).toEqual(originalFoo)
 })
