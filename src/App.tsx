@@ -12,17 +12,20 @@ interface Props {
 }
 
 function App(props: Props) {
+    const message = props.state.get('message') || ''
+    const foo = props.state.get('foo') || ''
+    
     return (
         <div className="App">
             <div className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-                <h2>{props.state.get('message')}</h2>
+                <h2>{message}</h2>
             </div>
             <p className="App-intro">
                 To get started, edit <code>src/App.tsx</code> and save to reload.
             </p>
-            <div id="foo">{props.state.get('foo')}</div>
-            <input type="text" defaultValue={props.state.get('message')} onChange={props.updateMessage}/>
+            <div id="foo">{foo}</div>
+            <input type="text" defaultValue={message} onChange={props.updateMessage}/>
         </div>
     )
 }

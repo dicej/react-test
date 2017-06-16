@@ -9,17 +9,9 @@ import Action, {Verb} from './Action'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
-const diff = require('immutablediff')
-
-const store = createStore(reducer, Immutable.fromJS({ message: 'Squeamish Ossifrage' }))
+const store = createStore(reducer, Immutable.fromJS({}))
 
 const socket = new WebSocket('ws://localhost:8290');
-
-socket.addEventListener('open', (event: Event) => {
-    socket.send(JSON.stringify({ type: Verb.Replace,
-                                 patch: diff(Immutable.fromJS({}),
-                                             store.getState()).toJS() }))
-})
 
 socket.addEventListener('message', (event: MessageEvent) => {
     const action = JSON.parse(event.data)

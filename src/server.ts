@@ -8,8 +8,7 @@ const diff = require('immutablediff')
 
 const server = new ws.Server({ port: 8290 })
 
-let state: Immutable.Map<string, ImmutableObject>
-    = Immutable.fromJS({ message: 'Buongiarno' })
+let state: Immutable.Map<string, ImmutableObject> = Immutable.fromJS({})
 
 interface Connection {
     socket: ws
@@ -26,12 +25,14 @@ function dispatch(action: Action) {
         if (patch.size > 0) {
             connection.socket.send(JSON.stringify({ type: Verb.Update,
                                                     patch: patch.toJS() }))
+            connection.state = state
         }
     })
 }
 
 server.on('connection', socket  => {
-    connections.push({ socket, state })
+    const connection = { socket, state }
+    connections.push(connection)
 
     socket.send(JSON.stringify({ type: Verb.Replace,
                                  patch: diff(Immutable.fromJS({}),
@@ -41,5 +42,12 @@ server.on('connection', socket  => {
         const action = JSON.parse(message as string)
         dispatch({ type: action.type,
                    patch: Immutable.fromJS(action.patch) })
+    })
+
+    socket.on('close', () => {
+        const index = connections.indexOf(connection)
+        if (index >= 0) {
+            connections.splice(index, 1)
+        }
     })
 })
