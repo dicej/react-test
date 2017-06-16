@@ -9,9 +9,11 @@ import Action, {Verb} from './Action'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
+const ReconnectingWebSocket = require('reconnecting-websocket')
+
 const store = createStore(reducer, Immutable.fromJS({}))
 
-const socket = new WebSocket('ws://localhost:8290');
+const socket = new ReconnectingWebSocket('ws://localhost:8290');
 
 socket.addEventListener('message', (event: MessageEvent) => {
     const action = JSON.parse(event.data)
